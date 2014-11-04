@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<style>
+			#dkeys ul , #dkeys li{
+				display: inline-block;
+			} 
+			
+			#dkeys ul>li {
+				width:30px;
+				height:30px;
+				border-radius:15px;
+				border-style : solid;
+				border-color: black;
+				border-width: 1px;
+				text-align: center;
+				font-size: 15px;
+				margin:5px;
+			}
+			
+			ul.stars li {
+				background-color: lightblue;
+			}
+			ul.numbers li {
+				background-color: lime;
+			}
+		</style>
+		<script src="jquery/jquery-2.1.1.js"></script>
+		<script>
+		//alert($("#bget").size());
+			$(document).ready(function () {
+				//alert($("#bget").size());
+				$("#bclear").click( function () {
+					$("#dkeys").empty();
+					//$("#dkeys").html("");
+					//$("#dkeys").text("");
+				});
+				$("#bget").click(function () {
+					$.ajax(
+					{
+						url : "http://www.estg.ipvc.pt/~pmoreira/sir/euro/getKeyJSON.php",
+						type : "GET",
+						dataType : "json",
+						success : function (keydata) {
+							newdiv = $("<div/>").addClass("chave");
+							listOfNumbers = $("<ul/>").addClass("numbers");
+							listOfStars = $("<ul/>").addClass("stars");
+							$.each(keydata.numbers, function(idx,n) {
+								listOfNumbers.append($("<li/>").text(n));
+							});
+							$.each(keydata.stars, function(idx,n) {
+								listOfStars.append($("<li/>").text(n));
+							});							
+							newdiv.append(listOfNumbers).append(listOfStars);
+							$("#dkeys").append(newdiv);
+						}
+					})
+				});
+			})
+			
+		</script>
+	</head>
+	<body>
+		<div id="dbuttons">
+			<input type="button" value="get keys" id="bget"/>
+			<input type="button" value="clear keys" id="bclear"/>
+		</div>
+		<div id="dkeys">
+			xxxxx xxxx xxxx xxxxx xxxx
+		</div>
+	</body>
+</html>
