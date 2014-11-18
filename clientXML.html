@@ -33,9 +33,13 @@
 				$("#bget").click(function () {
 					$.ajax(
 					{
-						url : "http://www.estg.ipvc.pt/~pmoreira/sir/euro/getKeyXML.php",
+						//url : "http://www.estg.ipvc.pt/~pmoreira/sir/euro/getKeyXML.php",
+						url: "getKey.php",
 						type : "GET",
 						dataType : "xml",
+						data: {
+							format: "xml"
+						},
 						success : function (keydata) {
 							alert(keydata);
 							
